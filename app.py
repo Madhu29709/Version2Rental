@@ -51,7 +51,35 @@ model = ChatGoogleGenerativeAI(
     model="gemini-3.5-flash-lite",
      google_api_key=api_key
 )
+st.sidebar.markdown("""
+<div class="about-box">
 
+<div class="about-title">
+🏠 About This Project
+</div>
+
+<div class="about-text">
+
+An AI-powered Rental Price Estimator that
+compares similar rental properties and
+provides an estimated monthly rent along
+with intelligent market insights.
+
+<br>
+
+<b>Core Technologies:</b><br>
+• Python<br>
+• Streamlit<br>
+• Pandas<br>
+• Google Gemini API<br>
+• LangChain Agent<br>
+• Rental Comparison Tool<br>
+• AI Rental Analysis
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 # Rental Comparison Tool
 # -----------------------------
 @tool
