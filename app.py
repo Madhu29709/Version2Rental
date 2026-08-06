@@ -5,8 +5,32 @@ import os
 from langchain.tools import tool
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
+import base64
 # Sidebar
 # -----------------------------
+# background emage
+def get_base64(image_file):
+    with open(image_file, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+bg_image = get_base64("1bg.png")
+
+st.markdown(
+    f"""
+    <style>
+
+    .stApp {{
+        background-image: url("data:image/png;base64,{bg_image}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.sidebar.title("⚙️ Settings")
 api_key = st.sidebar.text_input(
     "Enter Gemini API Key",
