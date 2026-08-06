@@ -106,7 +106,7 @@ def rental_comparison(
     ]
     # if very few properties are found ,relax the filter
     if len(filtered)<5:
-        filtered =df[(df["city"] =city) &(df["bhk")]
+        filtered =df[(df["city"] ==city) &(df["bhk"]==bhk)]
         fitered=filtered[(filtered["Size"]>=size - 400)&(filtered["Size"]<=size +400)]
    
     # very few ,  compare all properties in the city
