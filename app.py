@@ -325,7 +325,7 @@ if st.button("Estimate Rent"):
         - Maximum width: 900px
         - Background color: #f5f7fa
         
-        Provide output in HTML and Markdown format ONLY
+        Provide output in HTML and Markdown ONLY
         """
 
 
