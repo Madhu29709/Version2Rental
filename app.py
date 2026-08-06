@@ -20,7 +20,7 @@ st.markdown(
     <style>
 
     .stApp {{
-        background-image: url("data:image/png;base64,{bg_image}");
+        background-image: url("data:image/png;base64,{bbg_image}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
