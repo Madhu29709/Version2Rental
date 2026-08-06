@@ -153,6 +153,7 @@ st.subheader("🏠 Enter Property Details")
 # -----------------------------
 # City Dropdown
 # -----------------------------
+    
 cities = sorted(df["City"].dropna().unique())
 
 city = st.selectbox(
@@ -363,3 +364,18 @@ if st.button("Estimate Rent"):
     answer = response['messages'][-1].content[-1]['text']
     st.html(answer,width ="stretch",
                unsafe_allow_javascript= True)
+    st.header("Chat with Agent")
+    user_question=st.input("Ask Your Question")
+    if st.button("Ask Question"):
+    
+        if user_question:
+          with st.spinner("Thinking...."):
+            response = agent.invoke({"messages": [{"role": "user", "content": user_question}]})
+    
+            answer = response["messages"][-1].content[-1]['text']
+    
+            st.subheader("Answer")
+            st.write(answer)
+
+        else:
+            st.warning("Please enter a question.")
