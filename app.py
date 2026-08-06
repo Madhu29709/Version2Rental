@@ -94,7 +94,7 @@ def rental_comparison(
     """
 
     df = pd.read_csv("House_Rent_Dataset.csv")
-
+    # Strict cokaprison
     filtered = df[
         (df["City"] == city) &
         (df["Area Locality"] == area_locality) &
@@ -102,26 +102,33 @@ def rental_comparison(
     ]
 
     filtered = filtered[
-        (filtered["Size"] >= size - 200) &
-        (filtered["Size"] <= size + 200)
+        (filtered["Size"] >= size - 200) &(filtered["Size"] <= size + 200)
     ]
+    # if very few properties are found ,relax the filter
+    if len(filtered)<5:
+        filtered =df[(df["city"] =city) &(df["bhk")]
+        fitered=filtered[(filtered["Size"]>=size - 400)&(filtered["Size"]<=size +400)]
+   
+    # very few ,  compare all properties in the city
+    if len(filtered)<5:
+         filtered = df[df["City"] == city]
 
     if filtered.empty:
-        return "No similar rental properties were found in the dataset."
+        return "No similar rental properties were found ."
 
     avg_rent = filtered["Rent"].mean()
     min_rent = filtered["Rent"].min()
     max_rent = filtered["Rent"].max()
 
     return f"""
-Average Rent : ₹{avg_rent:.0f}
-
-Minimum Rent : ₹{min_rent:.0f}
-
-Maximum Rent : ₹{max_rent:.0f}
-
-Similar Properties Found : {len(filtered)}
-"""
+    Average Rent : ₹{avg_rent:.0f}
+    
+    Minimum Rent : ₹{min_rent:.0f}
+    
+    Maximum Rent : ₹{max_rent:.0f}
+    
+    Similar Properties Found : {len(filtered)}
+    """
 
 # -----------------------------
 # Agent
