@@ -178,40 +178,131 @@ floor = st.selectbox(
 # -----------------------------
 if st.button("Estimate Rent"):
 
-    query = f"""You are RentWise AI, an experienced real estate rental advisor.
-        Your goal is to estimate the monthly rent for a given property using the rental_comparison tool and provide a comprehensive rental market analysis.
+    query = fquery = f"""
+        You are RentWise AI, an experienced real estate rental advisor.
+        
+        Your task is to estimate the monthly rent by using the rental_comparison tool.
+        
         Property Details:
-       - City: Kolkata
-       - Locality: Bandel
-       - Layout: 2 BHK
-       - Size: 1100 sq. ft.
-       Instructions:
-        1. Call the rental_comparison tool using the property details above.
-        2. Compare this property against similar rental listings in the area.
-        3. Estimate the fair market monthly rent.
-        4. Indicate whether this estimate is below, near, or above the market average.
-        5. Write a detailed analysis (6–8 sentences) explaining how locality, BHK configuration, square footage, market demand, and available amenities justify this valuation.
-        6. Provide three practical, well-explained negotiation tips for potential tenants.
-        7. Conclude with a clear recommendation on whether the property is worth renting.
-
-        Format your response exactly as follows:
-
-        🏠 Estimated Monthly Rent
-        [Provide a clear rent estimate and state whether it is below, near, or above market average in a single concise paragraph.]
-
-        📊 Rental Comparison
-        [Compare the property to similar local listings in one detailed paragraph.]
-  
-       🤖 AI Analysis
-        [Provide a detailed analysis of 6–8 sentences covering locality, BHK, size, demand, and amenities.]
-
-       💡 Negotiation Tips
-        • [Tip 1 Name]: [2–3 sentences explaining the strategy]
-        • [Tip 2 Name]: [2–3 sentences explaining the strategy]
-        • [Tip 3 Name]: [2–3 sentences explaining the strategy]
-
-       ⭐ Final Recommendation
-        Provide a b detailed final paragraph recommending whether to rent the property and why.."""
+        - City: {city}
+        - Locality: {area}
+        - BHK: {bhk}
+        - Size: {size} sq.ft
+        - Bathrooms: {bathroom}
+        - Furnishing: {furnishing}
+        - Area Type: {area_type}
+        - Tenant Preferred: {tenant}
+        - Floor: {floor}
+        
+        Instructions:
+        
+        1. First call the rental_comparison tool.
+        2. Estimate the monthly rent.
+        3. Compare the property with similar rentals.
+        4. Decide whether the rent is:
+           - Below Market
+           - Fair Price
+           - Above Market
+        5. Generate short AI insights.
+        6. Give 3 negotiation tips.
+        7. Give a final recommendation.
+        
+        IMPORTANT:
+        
+        Return ONLY VALID HTML.
+        
+        Do NOT return Markdown.
+        
+        Do NOT return plain text.
+        
+        Use modern HTML with inline CSS.
+        
+        The HTML should contain:
+        
+        --------------------------------------------------
+        
+        🏠 Large Header
+        "Rental Price Report"
+        
+        --------------------------------------------------
+        
+        💰 Card 1
+        
+        Estimated Rent
+        
+        Large Green Price
+        
+        Market Status Badge
+        
+        --------------------------------------------------
+        
+        📊 Card 2
+        
+        Rental Comparison Table
+        
+        Average Rent
+        
+        Minimum Rent
+        
+        Maximum Rent
+        
+        Similar Properties Found
+        
+        --------------------------------------------------
+        
+        🏡 Card 3
+        
+        Property Details Table
+        
+        --------------------------------------------------
+        
+        🤖 Card 4
+        
+        AI Insights
+        
+        Use bullet points.
+        
+        --------------------------------------------------
+        
+        💡 Card 5
+        
+        Negotiation Tips
+        
+        Use numbered cards.
+        
+        --------------------------------------------------
+        
+        ⭐ Card 6
+        
+        Final Recommendation
+        
+        Show a colored badge:
+        
+        🟢 Recommended
+        
+        🟡 Consider
+        
+        🔴 Not Recommended
+        
+        --------------------------------------------------
+        
+        Design Requirements:
+        
+        - White cards
+        - Rounded corners
+        - Soft shadows
+        - Blue headings
+        - Green highlight for rent
+        - Responsive layout
+        - Font: Arial
+        - Nice spacing
+        - Modern dashboard style
+        - Use emojis
+        - Maximum width: 900px
+        - Background color: #f5f7fa
+        
+        Return ONLY HTML.
+        """
 
 
     response = agent.invoke({ "messages": [{"role": "user","content": query}]})
