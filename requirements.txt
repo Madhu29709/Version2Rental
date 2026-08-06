@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+matplotlib
+langchain
+langgraph
+langchain-google-genai
+google-generativeai
+python-dotenv
+tavily-python
