@@ -301,7 +301,7 @@ if st.button("Estimate Rent"):
         - Maximum width: 900px
         - Background color: #f5f7fa
         
-        Return ONLY HTML.
+        Return ONLY HTML and CSS.
         """
 
 
