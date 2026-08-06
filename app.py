@@ -13,13 +13,15 @@ def get_base64(image_file):
     with open(image_file, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-bg_image = get_base64("bbg.png")
+bg_image = get_base64("houseb.png")
 
 st.markdown(
     f"""
     <style>
 
     .stApp {{
+          linear-gradient(rgba(0,0,0,0.45),
+                        rgba(0,0,0,0.45)),
         background-image: url("data:image/png;base64,{bg_image}");
         background-size: cover;
         background-position: center;
