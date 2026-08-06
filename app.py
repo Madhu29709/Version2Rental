@@ -13,7 +13,7 @@ def get_base64(image_file):
     with open(image_file, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-bg_image = get_base64("finalbg.png")
+bg_image = get_base64("BG.png")
 
 st.markdown(
     f"""
