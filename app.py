@@ -94,7 +94,7 @@ def rental_comparison(
     """
 
     df = pd.read_csv("House_Rent_Dataset.csv")
-    # Strict cokaprison
+    # Strict Comparison 
     filtered = df[
         (df["City"] == city) &
         (df["Area Locality"] == area_locality) &
