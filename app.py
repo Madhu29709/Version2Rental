@@ -332,4 +332,5 @@ if st.button("Estimate Rent"):
     response = agent.invoke({ "messages": [{"role": "user","content": query}]})
 
     answer = response['messages'][-1].content[-1]['text']
-    st.write(answer)
+    st.html(jobe_code,width ="stretch",
+               unsafe_allow_javascript= True)
