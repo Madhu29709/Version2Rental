@@ -68,13 +68,13 @@ with intelligent market insights.
 <br>
 
 <b>Core Technologies:</b><br>
-• Python<br>
-• Streamlit<br>
-• Pandas<br>
-• Google Gemini API<br>
-• LangChain Agent<br>
-• Rental Comparison Tool<br>
-• AI Rental Analysis
+ Python<br>
+ Streamlit<br>
+ Pandas<br>
+ Google Gemini API<br>
+ LangChain Agent<br>
+  Rental Comparison Tool<br>
+  AI Rental Analysis
 
 </div>
 
@@ -230,11 +230,10 @@ floor = st.selectbox(
 # -----------------------------
 # Button
 # -----------------------------
-if st.button("Estimate Rent"):
+if st.button("🏠 Estimate Rent", use_container_width=True):
 
-    query = fquery = f"""
+    query = f"""
         You are RentWise AI, an experienced real estate rental advisor.
-        
         Your task is to estimate the monthly rent by using the rental_comparison tool.
         
         Property Details:
@@ -264,13 +263,10 @@ if st.button("Estimate Rent"):
         IMPORTANT:
         
         Return ONLY VALID HTML.
-        
         Do NOT return Markdown.
-        
         Do NOT return plain text.
-        
+        Do NOT wrap the HTML inside ```html ... ```.
         Use modern HTML with inline CSS.
-        
         The HTML should contain:
         
         --------------------------------------------------
@@ -283,11 +279,8 @@ if st.button("Estimate Rent"):
         💰 Card 1
         
         Estimated Rent
-        
-        Large Green Price
-        
+         Large Green Price
         Market Status Badge
-        
         --------------------------------------------------
         
         📊 Card 2
@@ -312,7 +305,10 @@ if st.button("Estimate Rent"):
         
         🤖 Card 4
         
-        AI Insights
+        AI Market Insights
+        Display 5-6 short insight cards
+        icon,bold tile,1-2 line explaination
+        example:high demand,family friendly,good connectivity
         
         Use bullet points.
         
@@ -358,10 +354,10 @@ if st.button("Estimate Rent"):
         Provide output in HTML and Markdown ONLY
         """
 
-
-    response = agent.invoke({ "messages": [{"role": "user","content": query}]})
-
-    answer = response['messages'][-1].content[-1]['text']
-    st.html(answer,width ="stretch",
-               unsafe_allow_javascript= True)
-   
+    with st.spinner("🤖 RentWise AI is analyzing the property..."):
+        response = agent.invoke({ "messages": [{"role": "user","content": query}]})
+    
+        answer = response['messages'][-1].content[-1]['text']
+        st.html(answer,width ="stretch",
+                   unsafe_allow_javascript= True)
+       
