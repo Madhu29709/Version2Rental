@@ -32,7 +32,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.sidebar.title("⚙️ Settings")
+st.sidebar.title("⚙️ ENTER THE API-KEY")
 api_key = st.sidebar.text_input(
     "Enter Gemini API Key",
     type="password",
