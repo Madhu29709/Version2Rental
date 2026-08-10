@@ -134,7 +134,7 @@ def rental_comparison(
     Maximum Rent : ₹{max_rent:.0f}
     
     Similar Properties Found : {len(filtered)}
-    outliers Removed : {len(Filtered)-len(clean_filtered)}
+    outliers Removed : {len(filtered)-len(clean_filtered)}
     """
 # Agent# -----------------------------
 agent = create_agent(
