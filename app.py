@@ -1,13 +1,10 @@
 import streamlit as st
 import pandas as pd
 import os
-
 from langchain.tools import tool
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 import base64
-# Sidebar
-# -----------------------------
 # background emage
 def get_base64(image_file):
     with open(image_file, "rb") as f:
@@ -129,16 +126,11 @@ def rental_comparison(
     
     Similar Properties Found : {len(filtered)}
     """
-
-# -----------------------------
-# Agent
-# -----------------------------
+# Agent# -----------------------------
 agent = create_agent(
     model=model,
     tools=[rental_comparison]
 )
-
-# -----------------------------
 # Streamlit UI
 # -----------------------------
 st.set_page_config(
@@ -156,8 +148,6 @@ st.write("Enter property details to estimate the monthly rent.")
 df = pd.read_csv("House_Rent_Dataset.csv")
 
 st.subheader("🏠 Enter Property Details")
-
-# -----------------------------
 # City Dropdown
 # -----------------------------
     
@@ -167,28 +157,17 @@ city = st.selectbox(
     "Select City",
     cities
 )
-
-# -----------------------------
 # Area Locality Dropdown
 # -----------------------------
 areas = sorted(
     df[df["City"] == city]["Area Locality"].dropna().unique()
 )
 
-area = st.selectbox(
-    "Select Area Locality",
-    areas
-)
-
-# -----------------------------
+area = st.selectbox( "Select Area Locality",areas)
 # BHK Dropdown
 # -----------------------------
-bhk = st.selectbox(
-    "Select BHK",
-    sorted(df["BHK"].unique())
+bhk = st.selectbox( "Select BHK", sorted(df["BHK"].unique())
 )
-
-# -----------------------------
 # Size Dropdown
 # -----------------------------
 sizes = sorted(
@@ -205,36 +184,14 @@ size = st.selectbox(
     "Select Size (sq ft)",
     sizes
 )
-
-# -----------------------------
 # Extra Property Details
 # -----------------------------
-bathroom = st.selectbox(
-    "Bathrooms",
-    sorted(df["Bathroom"].dropna().unique())
+bathroom = st.selectbox("Bathrooms",sorted(df["Bathroom"].dropna().unique()))
+furnishing = st.selectbox( "Furnishing Status", sorted(df["Furnishing Status"].dropna().unique()))
+area_type = st.selectbox("Area Type",sorted(df["Area Type"].dropna().unique())
 )
-
-furnishing = st.selectbox(
-    "Furnishing Status",
-    sorted(df["Furnishing Status"].dropna().unique())
-)
-
-area_type = st.selectbox(
-    "Area Type",
-    sorted(df["Area Type"].dropna().unique())
-)
-
-tenant = st.selectbox(
-    "Tenant Preferred",
-    sorted(df["Tenant Preferred"].dropna().unique())
-)
-
-floor = st.selectbox(
-    "Floor",
-    sorted(df["Floor"].dropna().unique())
-)
-
-# -----------------------------
+tenant = st.selectbox("Tenant Preferred",sorted(df["Tenant Preferred"].dropna().unique()))
+floor = st.selectbox("Floor", sorted(df["Floor"].dropna().unique()))
 # Button
 # -----------------------------
 if st.button("🏠 Estimate Rent", use_container_width=True):
