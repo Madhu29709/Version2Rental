@@ -104,7 +104,7 @@ def rental_comparison(
     # if very few properties are found ,relax the filter
     if len(filtered)<5:
         filtered =df[(df["City"] ==city) &(df["BHK"]==bhk)]
-        fitered=filtered[(filtered["Size"]>=size - 400)&(filtered["Size"]<=size +400)]
+        filtered=filtered[(filtered["Size"]>=size - 400)&(filtered["Size"]<=size +400)]
    
     # very few ,  compare all properties in the city
     if len(filtered)<5:
@@ -112,10 +112,19 @@ def rental_comparison(
 
     if filtered.empty:
         return "No similar rental properties were found ."
+    #  removing  rent outlier using IQR
+    # --------------------
+    Q1 = filtered["Rent"].quantile(0.25)
+    Q3 = filtered["Rent"].quantile(0.75)
+    IQR = Q3-Q1
+    lower_bound = Q1 -1.5*IQR
+    upper_bound = Q3 +1.5*IQR
+    #CLEAN filter
+    clean_filtered = filtered[filtered["Rent"]>=lower_bound)&(filtered["Rent"] <= upper_bound)
 
-    avg_rent = filtered["Rent"].mean()
-    min_rent = filtered["Rent"].min()
-    max_rent = filtered["Rent"].max()
+    avg_rent = clean_filtered["Rent"].mean()
+    min_rent = clean_filtered["Rent"].min()
+    max_rent = clean_filtered["Rent"].max()
 
     return f"""
     Average Rent : ₹{avg_rent:.0f}
@@ -125,6 +134,7 @@ def rental_comparison(
     Maximum Rent : ₹{max_rent:.0f}
     
     Similar Properties Found : {len(filtered)}
+    outliers Removed : {len(Filtered)-len(clean_filtered)}
     """
 # Agent# -----------------------------
 agent = create_agent(
