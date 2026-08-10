@@ -170,7 +170,10 @@ city = st.selectbox(
 # Area Locality Dropdown
 # -----------------------------
 areas = sorted(
-    df[df["City"] == city]["Area Locality"].dropna().unique()
+    df([df["City"] == city)&(df["Area Locality"].notna())&
+      (df["Area Locality"].astype)(str).str.match(r"^\d+$"))&
+      (df["Area Locality"].astype)(str).str.contains("BHK",case = False ,na = False))]
+      ["Area Locality"].unique()
 )
 
 area = st.selectbox( "Select Area Locality",areas)
