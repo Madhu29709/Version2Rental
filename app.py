@@ -120,7 +120,7 @@ def rental_comparison(
     lower_bound = Q1 -1.5*IQR
     upper_bound = Q3 +1.5*IQR
     #CLEAN filter
-    clean_filtered = filtered[filtered["Rent"]>=lower_bound)&(filtered["Rent"] <= upper_bound)
+    clean_filtered = filtered[(filtered["Rent"]>=lower_bound)&(filtered["Rent"] <= upper_bound)
 
     avg_rent = clean_filtered["Rent"].mean()
     min_rent = clean_filtered["Rent"].min()
