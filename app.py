@@ -180,10 +180,7 @@ sizes = sorted(
 if len(sizes) == 0:
     sizes = sorted(df["Size"].unique())
 
-size = st.selectbox(
-    "Select Size (sq ft)",
-    sizes
-)
+size = st.selectbox("Select Size (sq ft)", sizes)
 # Extra Property Details
 # -----------------------------
 bathroom = st.selectbox("Bathrooms",sorted(df["Bathroom"].dropna().unique()))
