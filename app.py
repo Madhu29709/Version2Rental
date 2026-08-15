@@ -132,7 +132,7 @@ def rental_comparison(
     ].sort_values("Rent").head(5)
     property_details =""
     for i ,row in enumerate(similar_properties.itertuples(index=False),1):
-        property_details += f""""
+        property_details += f"""
             Property {i}:
             City: {row[0]}
             Locality: {row[1]}
@@ -226,270 +226,279 @@ floor = st.selectbox("Floor", sorted(df["Floor"].dropna().unique()))
 # -----------------------------
 if st.button("🏠 Estimate Rent", use_container_width=True):
     query = f"""
-        You are RentWise AI, an experienced real estate rental advisor.
-        
-        Your task is to analyze the property and estimate its monthly rent
-        using the rental_comparison tool.
-        
-        PROPERTY DETAILS:
-        - City: {city}
-        - Locality: {area}
-        - BHK: {bhk}
-        - Size: {size} sq.ft
-        - Bathrooms: {bathroom}
-        - Furnishing: {furnishing}
-        - Area Type: {area_type}
-        - Tenant Preferred: {tenant}
-        - Floor: {floor}
-        
-        
-        INSTRUCTIONS:
-        
-        1. FIRST call the rental_comparison tool.
-        
-        2. Use the Average Rent returned by the tool as the main
-           market reference for the estimated rental price.
-        
-        3. Compare the property with the similar properties returned
-           by the tool.
-        
-        4. Use the actual SIMILAR PROPERTY DETAILS returned by the tool.
-           DO NOT invent or create similar properties.
-        
-        5. Display the actual similar properties in the report.
-           Show:
-           - City
-           - Locality
-           - BHK
-           - Size
-           - Bathrooms
-           - Furnishing
-           - Rent
-        
-        6. Compare the estimated rent with the market:
-           - Below Market
-           - Fair Price
-           - Above Market
-        
-        7. Generate 5-6 short AI market insights based ONLY on:
-           - Property details provided by the user
-           - Rental comparison data
-           - Similar property data
-        
-           DO NOT invent information about:
-           - Connectivity
-           - Nearby schools
-           - Hospitals
-           - Metro
-           - Demand
-           - Location facilities
-        
-           unless such information is actually available from the tool.
-        
-        8. Give 3 practical negotiation tips based on the
-           rental comparison and similar property prices.
-        
-        9. Give a final recommendation:
-           - Recommended
-           - Consider With Negotiation
-           - Not Recommended
-        
-        10. Keep the explanation concise and easy to understand.
-        
-        
-        IMPORTANT OUTPUT RULES:
-        
-        Return ONLY VALID HTML.
-        
-        Do NOT return Markdown.
-        Do NOT return plain text.
-        Do NOT wrap the HTML inside ```html ... ```.
-        
-        Use modern HTML with inline CSS.
-        
-        
-        The HTML MUST contain the following sections:
-        
-        
-        --------------------------------------------------
-        🏠 HEADER
-        --------------------------------------------------
-        
-        Large heading:
-        
-        "🏠 Rental Price Report"
-        
-        Small subtitle:
-        
-        "AI-powered rental market analysis"
-        
-        
-        --------------------------------------------------
-        💰 CARD 1 — ESTIMATED RENT
-        --------------------------------------------------
-        
-        Show:
-        
-        Estimated Monthly Rent
-        
-        Large estimated rent
-        
-        Example:
-        
-        ₹25,000 / month
-        
-        Also show a market status badge:
-        
-        🟢 Below Market
-        
-        🟡 Fair Price
-        
-        🔴 Above Market
-        
-        
-        --------------------------------------------------
-        📊 CARD 2 — RENTAL COMPARISON
-        --------------------------------------------------
-        
-        Create a clean table containing:
-        
-        Average Rent
-        Minimum Rent
-        Maximum Rent
-        Similar Properties Found
-        Outliers Removed
-        
-        
-        --------------------------------------------------
-        🏡 CARD 3 — PROPERTY DETAILS
-        --------------------------------------------------
-        
-        Create a clean table containing:
-        
-        City
-        Locality
-        BHK
-        Size
-        Bathrooms
-        Furnishing
-        Area Type
-        Tenant Preferred
-        Floor
-        
-        
-        --------------------------------------------------
-        🏘️ CARD 4 — SIMILAR PROPERTIES
-        --------------------------------------------------
-        
-        IMPORTANT:
-        
-        Display the ACTUAL similar properties returned by
-        the rental_comparison tool.
-        
-        Do NOT invent properties.
-        
-        Create a table with:
-        
-        Property
-        City
-        Locality
-        BHK
-        Size
-        Bathrooms
-        Furnishing
-        Rent
-        
-        Display up to 5 properties.
-        
-        
-        --------------------------------------------------
-        🤖 CARD 5 — AI MARKET INSIGHTS
-        --------------------------------------------------
-        
-        Display 5-6 short insight cards.
-        
-        Each insight should contain:
-        
-        Emoji + Bold Title
-        1-2 line explanation
-        
-        Examples:
-        
-        📐 Spacious Property
-        The property provides good space for its BHK category.
-        
-        🚿 Bathroom Advantage
-        The number of bathrooms provides additional convenience.
-        
-        💰 Market Position
-        The estimated rent is close to the local market average.
-        
-        🏠 Furnishing
-        The furnishing status may affect the rental value.
-        
-        📊 Comparable Rentals
-        Similar properties in the dataset provide a useful market reference.
-        
-        
-        --------------------------------------------------
-        💡 CARD 6 — NEGOTIATION TIPS
-        --------------------------------------------------
-        
-        Give exactly 3 negotiation tips.
-        
-        Use numbered cards:
-        
-        1. Compare Similar Properties
-        Explain how comparable rents can be used during negotiation.
-        
-        2. Suggested Negotiation Range
-        Suggest a reasonable negotiation range based on
-        the market comparison.
-        
-        3. Use Property Features
-        Mention relevant property features that can support
-        or weaken the asking price.
-        
-        
-        --------------------------------------------------
-        ⭐ CARD 7 — FINAL RECOMMENDATION
-        --------------------------------------------------
-        
-        Give a short final recommendation.
-        
-        Show ONE badge:
-        
-        🟢 Recommended
-        
-        🟡 Consider With Negotiation
-        
-        🔴 Not Recommended
-        
-        Also provide 2-3 lines explaining WHY.
-          --------------------------------------------------
-        DESIGN REQUIREMENTS
-        --------------------------------------------------
-        
-        - White cards
-        - Rounded corners
-        - Soft shadows
-        - Blue headings
-        - Green highlight for estimated rent
-        - Responsive layout
-        - Font: Arial
-        - Nice spacing
-        - Modern dashboard style
-        - Use emojis
-        - Maximum width: 900px
-        - Background color: #f5f7fa
-        - Clean tables
-        - Easy to read
-        - Professional UI
-        """
-with st.spinner("🤖 RentWise AI is analyzing the property..."):
-        response = agent.invoke({ "messages": [{"role": "user","content": query}]})
+    You are RentWise AI, an experienced real estate rental advisor.
     
+    Your task is to analyze the property and estimate its monthly rent
+    using the rental_comparison tool.
+        
+    Display prominently:
+    
+    ₹XX,XXX / month
+    
+    Also show the market status:
+    🟢 Below Market
+    🟡 Fair Price
+    🔴 Above Market
+    
+    PROPERTY DETAILS:
+    - City: {city}
+    - Locality: {area}
+    - BHK: {bhk}
+    - Size: {size} sq.ft
+    - Bathrooms: {bathroom}
+    - Furnishing: {furnishing}
+    - Area Type: {area_type}
+    - Tenant Preferred: {tenant}
+    - Floor: {floor}
+    
+    
+    INSTRUCTIONS:
+    
+    1. FIRST call the rental_comparison tool.
+    
+    2. Use the Average Rent returned by the tool as the main
+       market reference for the estimated rental price.
+    
+    3. Compare the property with the similar properties returned
+       by the tool.
+    
+    4. Use the actual SIMILAR PROPERTY DETAILS returned by the tool.
+       DO NOT invent or create similar properties.
+    
+    5. Display the actual similar properties in the report.
+       Show:
+       - City
+       - Locality
+       - BHK
+       - Size
+       - Bathrooms
+       - Furnishing
+       - Rent
+    
+    6. Compare the estimated rent with the market:
+       - Below Market
+       - Fair Price
+       - Above Market
+    
+    7. Generate 5-6 short AI market insights based ONLY on:
+       - Property details provided by the user
+       - Rental comparison data
+       - Similar property data
+    
+       DO NOT invent information about:
+       - Connectivity
+       - Nearby schools
+       - Hospitals
+       - Metro
+       - Demand
+       - Location facilities
+    
+       unless such information is actually available from the tool.
+    
+    8. Give 3 practical negotiation tips based on the
+       rental comparison and similar property prices.
+    
+    9. Give a final recommendation:
+       - Recommended
+       - Consider With Negotiation
+       - Not Recommended
+    
+    10. Keep the explanation concise and easy to understand.
+    
+    
+    IMPORTANT OUTPUT RULES:
+    
+    Return ONLY VALID HTML.
+    
+    Do NOT return Markdown.
+    Do NOT return plain text.
+    Do NOT wrap the HTML inside ```html ... ```.
+    
+    Use modern HTML with inline CSS.
+    
+    
+    The HTML MUST contain the following sections:
+    
+    
+    --------------------------------------------------
+    🏠 HEADER
+    --------------------------------------------------
+    
+    Large heading:
+    
+    "🏠 Rental Price Report"
+    
+    Small subtitle:
+    
+    "AI-powered rental market analysis"
+    
+    
+    --------------------------------------------------
+    💰 CARD 1 — ESTIMATED RENT
+    --------------------------------------------------
+    
+    Show:
+    
+    Estimated Monthly Rent
+    
+    Large estimated rent
+    
+    Example:
+    
+    ₹25,000 / month
+    
+    Also show a market status badge:
+    
+    🟢 Below Market
+    
+    🟡 Fair Price
+    
+    🔴 Above Market
+    
+    
+    --------------------------------------------------
+    📊 CARD 2 — RENTAL COMPARISON
+    --------------------------------------------------
+    
+    Create a clean table containing:
+    
+    Average Rent
+    Minimum Rent
+    Maximum Rent
+    Similar Properties Found
+    Outliers Removed
+    
+    
+    --------------------------------------------------
+    🏡 CARD 3 — PROPERTY DETAILS
+    --------------------------------------------------
+    
+    Create a clean table containing:
+    
+    City
+    Locality
+    BHK
+    Size
+    Bathrooms
+    Furnishing
+    Area Type
+    Tenant Preferred
+    Floor
+    
+    
+    --------------------------------------------------
+    🏘️ CARD 4 — SIMILAR PROPERTIES
+    --------------------------------------------------
+    
+    IMPORTANT:
+    
+    Display the ACTUAL similar properties returned by
+    the rental_comparison tool.
+    
+    Do NOT invent properties.
+    
+    Create a table with:
+    
+    Property
+    City
+    Locality
+    BHK
+    Size
+    Bathrooms
+    Furnishing
+    Rent
+    
+    Display up to 5 properties.
+    
+    
+    --------------------------------------------------
+    🤖 CARD 5 — AI MARKET INSIGHTS
+    --------------------------------------------------
+    
+    Display 5-6 short insight cards.
+    
+    Each insight should contain:
+    
+    Emoji + Bold Title
+    1-2 line explanation
+    
+    Examples:
+    
+    📐 Spacious Property
+    The property provides good space for its BHK category.
+    
+    🚿 Bathroom Advantage
+    The number of bathrooms provides additional convenience.
+    
+    💰 Market Position
+    The estimated rent is close to the local market average.
+    
+    🏠 Furnishing
+    The furnishing status may affect the rental value.
+    
+    📊 Comparable Rentals
+    Similar properties in the dataset provide a useful market reference.
+    
+    
+    --------------------------------------------------
+    💡 CARD 6 — NEGOTIATION TIPS
+    --------------------------------------------------
+    
+    Give exactly 3 negotiation tips.
+    
+    Use numbered cards:
+    
+    1. Compare Similar Properties
+    Explain how comparable rents can be used during negotiation.
+    
+    2. Suggested Negotiation Range
+    Suggest a reasonable negotiation range based on
+    the market comparison.
+    
+    3. Use Property Features
+    Mention relevant property features that can support
+    or weaken the asking price.
+    
+    
+    --------------------------------------------------
+    ⭐ CARD 7 — FINAL RECOMMENDATION
+    --------------------------------------------------
+    
+    Give a short final recommendation.
+    
+    Show ONE badge:
+    
+    🟢 Recommended
+    
+    🟡 Consider With Negotiation
+    
+    🔴 Not Recommended
+    
+    Also provide 2-3 lines explaining WHY.
+      --------------------------------------------------
+    DESIGN REQUIREMENTS
+    --------------------------------------------------
+    
+    - White cards
+    - Rounded corners
+    - Soft shadows
+    - Blue headings
+    - Green highlight for estimated rent
+    - Responsive layout
+    - Font: Arial
+    - Nice spacing
+    - Modern dashboard style
+    - Use emojis
+    - Maximum width: 900px
+    - Background color: #f5f7fa
+    - Clean tables
+    - Easy to read
+    - Professional UI
+    """
+    with st.spinner("🤖 RentWise AI is analyzing the property..."):
+         response = agent.invoke({ "messages": [{"role": "user","content": query}]})
+        
         answer = response['messages'][-1].content[-1]['text']
         st.html(answer,width ="stretch",
-                   unsafe_allow_javascript= True)
-       
+                unsafe_allow_javascript= True)
+           
