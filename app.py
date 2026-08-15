@@ -132,8 +132,7 @@ def rental_comparison(
     ].sort_values("Rent").head(5)
     property_details =""
     for i ,row in enumerate(similar_properties.itertuples(index=False),1):
-        property_details +=
-            f""""
+        property_details += f""""
             Property {i}:
             City: {row[0]}
             Locality: {row[1]}
