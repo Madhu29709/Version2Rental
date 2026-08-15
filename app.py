@@ -498,7 +498,7 @@ if st.button("🏠 Estimate Rent", use_container_width=True):
     with st.spinner("🤖 RentWise AI is analyzing the property..."):
          response = agent.invoke({ "messages": [{"role": "user","content": query}]})
         
-        answer = response['messages'][-1].content[-1]['text']
-        st.html(answer,width ="stretch",
+         answer = response['messages'][-1].content[-1]['text']
+         st.html(answer,width ="stretch",
                 unsafe_allow_javascript= True)
            
